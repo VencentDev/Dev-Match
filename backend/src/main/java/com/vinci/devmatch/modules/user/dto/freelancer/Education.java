@@ -1,4 +1,4 @@
-package com.vinci.devmatch.modules.user.dto.user;
+package com.vinci.devmatch.modules.user.dto.freelancer;
 
 import com.vinci.devmatch.modules.user.enums.HighestAttainedEducation;
 import lombok.AllArgsConstructor;

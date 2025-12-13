@@ -1,7 +1,7 @@
 package com.vinci.devmatch.modules.user.validation.education;
 
 
-import com.vinci.devmatch.modules.user.dto.user.Education;
+import com.vinci.devmatch.modules.user.dto.freelancer.Education;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
