@@ -1,6 +1,7 @@
 package com.vinci.devmatch.modules.user.entity;
 
 
+import com.vinci.devmatch.modules.user.validation.education.ValidEducationList;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,9 +50,10 @@ public class FreelancerProfile {
     @Column(name = "programming_language")
     private Set<String> programmingLanguages = new HashSet<>();
 
+    @ValidEducationList
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "freelancer_education", joinColumns = @JoinColumn(name = "profile_id"))
-    private Set<Education> education = new HashSet<>();
+    private Set<EducationInfo> educationInfo = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "freelancer_certifications", joinColumns = @JoinColumn(name = "profile_id"))
