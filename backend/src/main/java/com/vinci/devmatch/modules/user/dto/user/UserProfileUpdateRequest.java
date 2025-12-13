@@ -2,6 +2,7 @@ package com.vinci.devmatch.modules.user.dto.user;
 
 import com.vinci.devmatch.modules.user.dto.ContactInfo;
 import com.vinci.devmatch.modules.user.dto.freelancer.FreelancerProfileUpdateRequest;
+import com.vinci.devmatch.modules.user.validation.user.ValidUserProfileUpdate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ValidUserProfileUpdate
 public class UserProfileUpdateRequest {
 
     @NotBlank(message = "Username is required")
