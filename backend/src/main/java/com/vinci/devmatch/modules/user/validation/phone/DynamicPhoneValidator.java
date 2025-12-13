@@ -2,7 +2,7 @@ package com.vinci.devmatch.modules.user.validation.phone;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.vinci.devmatch.modules.user.dto.user.ContactInfo;
+import com.vinci.devmatch.modules.user.dto.ContactInfo;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

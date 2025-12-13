@@ -1,4 +1,4 @@
-package com.vinci.devmatch.modules.user.dto.user;
+package com.vinci.devmatch.modules.user.dto;
 
 import com.vinci.devmatch.modules.user.validation.phone.ValidPhoneWithCountry;
 import jakarta.validation.constraints.NotBlank;

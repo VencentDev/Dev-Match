@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EducationDto {
+public class Education {
     private String degree;
     private HighestAttainedEducation highestAttainedEducation;
     private String startYear;
