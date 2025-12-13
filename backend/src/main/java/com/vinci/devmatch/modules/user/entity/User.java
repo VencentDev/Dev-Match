@@ -35,7 +35,11 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String fullName;
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
 
     @Embedded
     private ContactInfo contactInfo;

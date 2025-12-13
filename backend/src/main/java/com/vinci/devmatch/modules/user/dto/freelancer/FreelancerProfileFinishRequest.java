@@ -1,6 +1,7 @@
 package com.vinci.devmatch.modules.user.dto.freelancer;
 
 import com.vinci.devmatch.modules.user.dto.freelancer.Education;
+import com.vinci.devmatch.modules.user.validation.freelancer.ValidFreelancerProfileFinish;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ValidFreelancerProfileFinish
 public class FreelancerProfileFinishRequest {
 
     private String position;
