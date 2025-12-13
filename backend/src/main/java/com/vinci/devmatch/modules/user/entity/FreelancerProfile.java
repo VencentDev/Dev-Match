@@ -53,7 +53,7 @@ public class FreelancerProfile {
     @ValidEducationList
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "freelancer_education", joinColumns = @JoinColumn(name = "profile_id"))
-    private Set<Education> education = new HashSet<>();
+    private Set<EducationInfo> educationInfo = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "freelancer_certifications", joinColumns = @JoinColumn(name = "profile_id"))

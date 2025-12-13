@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Education {
+public class EducationInfo {
     private String degree;
 
     @Enumerated(EnumType.STRING)
