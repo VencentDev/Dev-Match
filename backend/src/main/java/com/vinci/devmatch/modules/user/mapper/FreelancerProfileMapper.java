@@ -7,8 +7,13 @@ import com.vinci.devmatch.modules.user.entity.FreelancerProfile;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring", uses = {EducationMapper.class})
+@Mapper(
+        componentModel = "spring",
+        uses = {EducationMapper.class},
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
 public interface FreelancerProfileMapper {
 
     @Mapping(target = "education", source = "educationInfo")
