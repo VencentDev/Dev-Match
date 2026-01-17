@@ -7,23 +7,23 @@ import com.vinci.devmatch.modules.user.entity.FreelancerProfile;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {EducationMapper.class})
 public interface FreelancerProfileMapper {
 
-    FreelancerProfileMapper INSTANCE = Mappers.getMapper(FreelancerProfileMapper.class);
-
+    @Mapping(target = "education", source = "educationInfo")
     FreelancerProfileResponse toDto(FreelancerProfile profile);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
+    @Mapping(target = "educationInfo", source = "education")
     FreelancerProfile toEntity(FreelancerProfileFinishRequest dto);
 
-    void updateEntityFromDto(FreelancerProfileUpdateRequest dto, @MappingTarget FreelancerProfile entity);
-
-    // Convert between finish and update DTOs
-    FreelancerProfileUpdateRequest toUpdateDto(FreelancerProfileFinishRequest finishDto);
-
-    FreelancerProfileFinishRequest toFinishDto(FreelancerProfileUpdateRequest updateDto);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "educationInfo", source = "education")
+    void updateEntityFromDto(
+            FreelancerProfileUpdateRequest dto,
+            @MappingTarget FreelancerProfile entity
+    );
 }
-

@@ -1,15 +1,15 @@
 package com.vinci.devmatch.modules.user.mapper;
 
-import com.vinci.devmatch.modules.user.dto.ContactInfo;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ContactInfoMapper {
 
-    ContactInfoMapper INSTANCE = Mappers.getMapper(ContactInfoMapper.class);
+    com.vinci.devmatch.modules.user.dto.ContactInfo toDto(
+            com.vinci.devmatch.modules.user.entity.ContactInfo entity
+    );
 
-    ContactInfo toDto(ContactInfo entity);
-
-    ContactInfo toEntity(ContactInfo dto);
+    com.vinci.devmatch.modules.user.entity.ContactInfo toEntity(
+            com.vinci.devmatch.modules.user.dto.ContactInfo dto
+    );
 }
