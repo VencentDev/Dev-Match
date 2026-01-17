@@ -12,21 +12,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@ValidUserProfileFinish
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ValidUserProfileFinish
 public class UserProfileFinishRequest {
 
     @NotNull(message = "Role selection is required")
-    private Role role; // ← ADDED - USER MUST SELECT
+    private Role role;
 
     @NotBlank(message = "First name is required")
-    private String firstName; // ← ADDED
+    private String firstName;
 
     @NotBlank(message = "Last name is required")
-    private String lastName; // ← ADDED
+    private String lastName;
 
     @Valid
     private ContactInfo contactInfo;

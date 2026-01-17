@@ -1,6 +1,5 @@
 package com.vinci.devmatch.modules.user.dto.freelancer;
 
-import com.vinci.devmatch.modules.user.validation.education.ValidEducationList;
 import lombok.*;
 
 import java.util.Set;
@@ -18,7 +17,6 @@ public class FreelancerProfileResponse {
     private Set<String> languages;
     private Set<String> programmingLanguages;
 
-    @ValidEducationList
     private Set<Education> education;
 
     private Set<String> certifications;
