@@ -15,28 +15,44 @@ public class DynamicPhoneValidator implements ConstraintValidator<ValidPhoneWith
         String phone = dto.getPhone();
         String country = dto.getCountry();
 
-        // ❌ Phone required but empty → fail with message tied to the 'phone' field
         if (phone == null || phone.isBlank()) {
             return buildFieldViolation(context, "phone", "Phone number is required");
         }
 
-        // ❌ Country required but empty → fail with message tied to the 'country' field
         if (country == null || country.isBlank()) {
             return buildFieldViolation(context, "country", "Country is required for phone validation");
         }
 
         try {
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-            var parsed = phoneUtil.parse(phone, country);
+
+            // ✅ Normalize country code to uppercase (e.g., "ph" → "PH")
+            String countryCode = country.toUpperCase();
+
+            var parsed = phoneUtil.parse(phone, countryCode);
 
             if (!phoneUtil.isValidNumber(parsed)) {
-                return buildFieldViolation(context, "phone", "Phone number is invalid for the selected country");
+                return buildFieldViolation(context, "phone",
+                        String.format("Phone number is invalid for %s", country));
             }
 
             return true;
 
         } catch (NumberParseException e) {
-            return buildFieldViolation(context, "phone", "Invalid phone number format");
+            String errorMessage = switch (e.getErrorType()) {
+                case INVALID_COUNTRY_CODE ->
+                        String.format("Invalid country code: %s", country);
+                case NOT_A_NUMBER ->
+                        "Phone number contains invalid characters";
+                case TOO_SHORT_NSN ->
+                        "Phone number is too short";
+                case TOO_LONG ->
+                        "Phone number is too long";
+                default ->
+                        "Invalid phone number format";
+            };
+
+            return buildFieldViolation(context, "phone", errorMessage);
         }
     }
 

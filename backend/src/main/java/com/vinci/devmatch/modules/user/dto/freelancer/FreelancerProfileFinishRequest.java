@@ -1,8 +1,9 @@
 package com.vinci.devmatch.modules.user.dto.freelancer;
 
-import com.vinci.devmatch.modules.user.validation.freelancer.ValidFreelancerProfileFinish;
+import com.vinci.devmatch.modules.user.validation.url.ValidURL;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,20 +15,17 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ValidFreelancerProfileFinish
 public class FreelancerProfileFinishRequest {
 
     @NotBlank(message = "Position is required")
+    @Size(max = 100)
     private String position;
 
     @NotEmpty(message = "At least one skill is required")
+    @Size(min = 1, max = 30)
     private Set<String> skills;
 
-    private Set<String> links;
-
-    private Set<String> languages;
-
-    private Set<String> programmingLanguages; // ← ADDED
+    private Set<@ValidURL String> links;
 
     private Set<Education> education;
 

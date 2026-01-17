@@ -2,17 +2,17 @@ package com.vinci.devmatch.modules.user.dto.user;
 
 import com.vinci.devmatch.modules.user.dto.ContactInfo;
 import com.vinci.devmatch.modules.user.dto.freelancer.FreelancerProfileUpdateRequest;
-import com.vinci.devmatch.modules.user.validation.user.ValidUserProfileUpdate;
+import com.vinci.devmatch.modules.user.validation.user.ValidUserProfileFinish;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+@ValidUserProfileFinish
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ValidUserProfileUpdate
 public class UserProfileUpdateRequest {
 
     @NotBlank(message = "First name is required")
