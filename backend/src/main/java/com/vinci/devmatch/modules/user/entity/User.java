@@ -1,103 +1,111 @@
 package com.vinci.devmatch.modules.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinci.devmatch.modules.user.enums.KycStatus;
 import com.vinci.devmatch.modules.user.enums.Role;
 import com.vinci.devmatch.modules.user.enums.UserType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.*;
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "idx_auth0_id", columnList = "auth0_id"),
+        @Index(name = "idx_email", columnList = "email")
+})
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(unique = true, nullable = false)
-    private String username;
+    @Column(unique = true, nullable = false, name = "auth0_id")
+    private String auth0Id;
 
-    @NotBlank
-    @Email
     @Column(unique = true, nullable = false)
     private String email;
 
-    @NotBlank
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private Role role;
+
+    @Column(nullable = false)
     private String firstName;
 
-    @NotBlank
+    @Column(nullable = false)
     private String lastName;
 
     @Embedded
     private ContactInfo contactInfo;
 
+    @Column(name = "government_id_url")
     private String governmentIdUrl;
 
     private String industry;
-
     private String paymentMethod;
 
-    private boolean emailVerified = false;
-
+    @Builder.Default
     private boolean profileCompleted = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private UserType userType = UserType.UNKNOWN;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private KycStatus kycStatus = KycStatus.PENDING;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
-
-    @Column(nullable = true)
-    @JsonIgnore
-    private String password;
-
-    private String oauthProvider;
-    private String oauthSubjectId;
-
-    // 1:1 freelancer profile
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private FreelancerProfile freelancerProfile;
 
-    // ------------ Spring Security ---------------
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        String authority = role.name().startsWith("ROLE_")
-                ? role.name()
-                : "ROLE_" + role.name();
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
-        return List.of(new SimpleGrantedAuthority(authority));
+
+    public boolean isProfileComplete() {
+        return profileCompleted && role != null;
     }
 
-    @Override public String getPassword() { return null; }
-    @Override public String getUsername() { return username; }
-    @Override public boolean isAccountNonExpired() { return true; }
-    @Override public boolean isAccountNonLocked() { return true; }
-    @Override public boolean isCredentialsNonExpired() { return true; }
+    public boolean needsRoleSelection() {
+        return role == null;
+    }
 
-    @Override
-    public boolean isEnabled() {
-        return emailVerified;
+    public boolean hasRole(Role requiredRole) {
+        return this.role != null && this.role == requiredRole;
+    }
+
+    public boolean isAdmin() {
+        return hasRole(Role.ADMIN);
+    }
+
+    public boolean isFreelancer() {
+        return hasRole(Role.FREELANCER);
+    }
+
+    public boolean isClient() {
+        return hasRole(Role.CLIENT);
+    }
+
+    public void setFreelancerProfile(FreelancerProfile freelancerProfile) {
+        this.freelancerProfile = freelancerProfile;
+        if (freelancerProfile != null) {
+            freelancerProfile.setUser(this);
+        }
     }
 }
-
-
