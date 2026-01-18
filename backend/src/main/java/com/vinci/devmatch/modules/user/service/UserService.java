@@ -8,8 +8,9 @@ public interface UserService {
 
     UserResponse getUserById(Long id);
 
-    UserResponse updateUserProfile(Long userId, UserProfileUpdateRequest updateRequest);
+    UserResponse getUserByAuth0Id(String auth0Id);
 
-    UserResponse finishUserProfile(Long userId, UserProfileFinishRequest finishRequest);
+    UserResponse updateUserProfile(Long userId, UserProfileUpdateRequest request);
 
+    UserResponse finishUserProfile(Long userId, UserProfileFinishRequest request);
 }
