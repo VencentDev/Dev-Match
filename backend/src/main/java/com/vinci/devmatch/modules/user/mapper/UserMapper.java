@@ -4,10 +4,7 @@ import com.vinci.devmatch.modules.user.dto.user.UserProfileFinishRequest;
 import com.vinci.devmatch.modules.user.dto.user.UserProfileUpdateRequest;
 import com.vinci.devmatch.modules.user.dto.user.UserResponse;
 import com.vinci.devmatch.modules.user.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 @Mapper(
         componentModel = "spring",
@@ -16,10 +13,18 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 )
 public interface UserMapper {
 
-    @Mapping(target = "role", expression = "java(user.getRole() != null ? user.getRole().name() : null)")
-    @Mapping(target = "userType", expression = "java(user.getUserType() != null ? user.getUserType().name() : null)")
-    @Mapping(target = "kycStatus", expression = "java(user.getKycStatus() != null ? user.getKycStatus().name() : null)")
+    // ✅ Use afterMapping instead of expressions
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "userType", ignore = true)
+    @Mapping(target = "kycStatus", ignore = true)
     UserResponse toUserResponse(User user);
+
+    @AfterMapping
+    default void mapEnums(@MappingTarget UserResponse response, User user) {
+        response.setRole(user.getRole() != null ? user.getRole().name() : null);
+        response.setUserType(user.getUserType() != null ? user.getUserType().name() : null);
+        response.setKycStatus(user.getKycStatus() != null ? user.getKycStatus().name() : null);
+    }
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "auth0Id", ignore = true)

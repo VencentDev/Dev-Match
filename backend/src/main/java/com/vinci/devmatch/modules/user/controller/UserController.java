@@ -14,8 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -70,7 +68,6 @@ public class UserController {
     /**
      * Update user profile
      * PUT /api/users/{id}
-     *
      * ✅ CHANGED: Removed "/update-profile" - REST convention uses just the resource path
      */
     @PutMapping("/{id}")
@@ -85,7 +82,6 @@ public class UserController {
     /**
      * Finish user profile setup (first-time profile completion)
      * POST /api/users/{id}/finish-profile
-     *
      * Note: This is a specific action, so "/finish-profile" is acceptable
      */
     @PostMapping("/{id}/finish-profile")
