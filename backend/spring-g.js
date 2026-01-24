@@ -24,7 +24,6 @@ program
       "mapper",
       "repository",
       "service",
-      "usecase",
       "validation",
     ];
 
