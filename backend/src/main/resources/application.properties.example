@@ -1,0 +1,23 @@
+spring.application.name=
+server.port=
+
+jwt.secret=
+jwt.access-expiration-ms=
+jwt.refresh-expiration-ms=
+
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+app.semantic.ai.url=
+
+# JPA/Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=
+spring.jpa.show-sql=
+spring.jpa.properties.hibernate.format_sql=
+spring.jpa.properties.hibernate.dialect=
+
+spring.data.jpa.repositories.enabled=
+
+# Auth0 issuer (replace YOUR_DOMAIN)
+spring.security.oauth2.resourceserver.jwt.issuer-uri=
