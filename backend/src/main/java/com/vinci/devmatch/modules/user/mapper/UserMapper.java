@@ -17,6 +17,8 @@ public interface UserMapper {
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "userType", ignore = true)
     @Mapping(target = "kycStatus", ignore = true)
+    // map the entity's freelancerProfile -> DTO's freelancerProfile (FreelancerProfileResponse)
+    @Mapping(target = "freelancerProfile", source = "freelancerProfile")
     UserResponse toUserResponse(User user);
 
     @AfterMapping
