@@ -38,7 +38,7 @@ Key goals:
 
 | Layer | Technology |
 |--------|-------------|
-| **Backend** | Java Spring Boot | Auth0
+| **Backend** | Java Spring Boot/ Auth0 |
 | **Database** | PostgreSQL |
 | **Frontend** | Next.js |
 | **ORM** | Hibernate / JPA |
