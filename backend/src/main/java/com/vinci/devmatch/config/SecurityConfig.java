@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()  // Public auth endpoints
+                        .requestMatchers("/api/auth/**").authenticated() // Public auth endpoints
                         .anyRequest().authenticated()                  // All other endpoints require JWT
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
